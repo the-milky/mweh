@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>love u my durki bandi</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(to bottom, #ffe6f0, #ffd6eb);
+      overflow-x: hidden;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Trees background */
+    .trees {
+      position: fixed;
+      inset: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><circle cx="200" cy="400" r="200" fill="pink" opacity="0.3"/></svg>') repeat-x bottom;
+      background-size: contain;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Background confetti canvas */
+    #bgConfetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Blurry overlay */
+    .blur-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 5;
+      transition: transform 0.8s ease, opacity 0.8s ease;
+    }
+    .blur-overlay.hidden {
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Slider */
+    .slider {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      height: 100vh;
+      z-index: 2;
+    }
+
+    .letter {
+      width: 300px;
+      height: 400px;
+      background: #ffb6c1;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.5s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      position: relative;
+    }
+    .letter.open {
+      transform: scale(1.1);
+    }
+
+    .paper {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 70%;
+      background: white;
+      border-radius: 12px;
+      padding: 1rem;
+      color: #ff69b4;
+      font-size: 1rem;
+      overflow-y: auto;
+    }
+    .letter.open .paper {
+      display: block;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -40%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    .paper:focus {
+      outline: 2px solid pink;
+    }
+
+    /* Music Player */
+    .music-player {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 10;
+      font-size: 0.9rem;
+    }
+    .music-player button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+    .music-player input[type=range] {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="trees"></div>
+  <canvas id="bgConfetti"></canvas>
+
+  <!-- Blurry Overlay -->
+  <div class="blur-overlay" id="blurOverlay">
+    <h2 style="color:#ff69b4; font-size:2rem;">Swipe Up to Reveal 🎉</h2>
+  </div>
+
+  <!-- Letters container -->
+  <div class="slider">
+    <div class="slider">
+  <div class="letter">
+    Surprise
+    <div class="paper">
+      <a href="surprise.html" class="btn">Open Surprise</a>
+
+      <style>
+        .btn {
+  display: inline-block;
+  background: #ff69b4; /* pinkish aesthetic */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #ff85c1;
+}
+
+      </style>
+    </div>
+</div>
+    </div>
+    <div class="letter">
+    tap
+      <div class="paper" contenteditable="true">merry christmas</div>
+    </div>
+    <div class="letter">
+      tap
+      <div class="paper" contenteditable="true">kyaaa  reeee bhoundu</div>
+    </div>
+  </div>
+
+  <canvas id="burstConfetti"></canvas>
+
+
+  <script>
+    // Background confetti
+    const canvas = document.getElementById('bgConfetti');
+    const ctx = canvas.getContext('2d');
+    let W, H;
+    const confetti = [];
+
+    function resizeCanvas() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < 100; i++) {
+      confetti.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 6 + 2,
+        d: Math.random() * 10,
+      });
+    }
+
+    function drawConfetti() {
+      ctx.clearRect(0,0,W,H);
+      ctx.fillStyle = 'rgba(255,182,193,0.7)';
+      confetti.forEach(c => {
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, c.r, 0, Math.PI*2);
+        ctx.fill();
+      });
+      updateConfetti();
+    }
+
+    function updateConfetti() {
+      confetti.forEach(c => {
+        c.y += Math.cos(c.d) + 1 + c.r/2;
+        if(c.y > H) { c.y = -10; c.x = Math.random()*W; }
+      });
+    }
+
+    setInterval(drawConfetti, 30);
+
+    // Swipe up to hide overlay
+    const blurOverlay = document.getElementById('blurOverlay');
+    let startY = null;
+    blurOverlay.addEventListener('touchstart', e => {
+      startY = e.touches[0].clientY;
+    });
+    blurOverlay.addEventListener('touchmove', e => {
+      if (!startY) return;
+      let diffY = startY - e.touches[0].clientY;
+      if (diffY > 100) {
+        blurOverlay.classList.add('hidden');
+        startY = null;
+        burst();
+      }
+    });
+    blurOverlay.addEventListener('click', () => {
+      blurOverlay.classList.add('hidden');
+      burst();
+    });
+
+    // Letters
+    const letters = document.querySelectorAll('.letter');
+    letters.forEach(letter => {
+      letter.addEventListener('click', () => {
+        letters.forEach(l => l.classList.remove('open'));
+        letter.classList.add('open');
+        burst();
+      });
+    });
+
+    // Burst confetti
+    const burstCanvas = document.getElementById('burstConfetti');
+    const bctx = burstCanvas.getContext('2d');
+    burstCanvas.width = window.innerWidth;
+    burstCanvas.height = window.innerHeight;
+
+    function burst() {
+      const pieces = [];
+      for (let i=0; i<50; i++) {
+        pieces.push({
+          x: burstCanvas.width/2,
+          y: burstCanvas.height/2,
+          r: Math.random()*6+2,
+          dx: (Math.random()-0.5)*8,
+          dy: (Math.random()-0.5)*8,
+          life: 60
+        });
+      }
+
+      function animate() {
+        bctx.clearRect(0,0,burstCanvas.width, burstCanvas.height);
+        pieces.forEach((p,i) => {
+          bctx.beginPath();
+          bctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+          bctx.fillStyle = 'pink';
+          bctx.fill();
+          p.x+=p.dx;
+          p.y+=p.dy;
+          p.dy+=0.1;
+          p.life--;
+        });
+        if(pieces.some(p=>p.life>0)) requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    // Music player logic
+    const audio = document.getElementById('audio');
+    const playPauseBtn = document.getElementById('playPause');
+    const seekBar = document.getElementById('seekBar');
+    const timeDisplay = document.getElementById('timeDisplay');
+
+    // Toggle play/pause
+    playPauseBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        playPauseBtn.textContent = '⏸️';
+      } else {
+        audio.pause();
+        playPauseBtn.textContent = '▶️';
+      }
+    });
+
+    // Update seek bar as audio plays
+    audio.addEventListener('timeupdate', () => {
+      seekBar.max = audio.duration;
+      seekBar.value = audio.currentTime;
+      timeDisplay.textContent = formatTime(audio.currentTime) + " / " + formatTime(audio.duration);
+    });
+
+    // Seek when range input changes
+    seekBar.addEventListener('input', () => {
+      audio.currentTime = seekBar.value;
+    });
+
+    // Format time helper
+    function formatTime(sec) {
+      if (isNaN(sec)) return "0:00";
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    }
+  </script>
+</body>
+</html>

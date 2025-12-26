@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>merry christmas my babyyyyy</title>
+<meta name="color-scheme" content="light dark">
+<style>
+  /* (Your existing styles — slightly cleaned) */
+  :root{
+    --bg-1: #fff6f8;
+    --bg-2: #fff0f6;
+    --muted: rgba(0,0,0,0.48);
+    --card-radius: 22px;
+    --soft-shadow: 0 12px 40px rgba(16,12,20,0.06);
+    --accent: linear-gradient(135deg,#ff9db0,#7ec8ff 65%);
+    --accent-soft: linear-gradient(135deg,#ffddec,#dff3ff);
+    --max-width: 1100px;
+  }
+  html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background: radial-gradient(1200px 600px at 10% 12%, rgba(255,230,240,0.65), transparent 8%), linear-gradient(180deg,var(--bg-1),var(--bg-2) 45%); color:#1b1420; overflow:hidden;}
+  .viewport{height:100vh;width:100%;overflow:auto;scroll-snap-type:y mandatory}
+  section.page{min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:56px 20px;box-sizing:border-box;scroll-snap-align:start}
+  .container{width:100%;max-width:var(--max-width);display:flex;gap:28px;flex-direction:column;align-items:center;margin:0 auto}
+  .hero{width:100%;border-radius:28px;padding:22px;background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.6));box-shadow: var(--soft-shadow);display:flex;gap:18px;align-items:center;flex-direction:column;position:relative;overflow:visible;border: 1px solid rgba(255,255,255,0.6);backdrop-filter: blur(6px) saturate(1.05);}
+  .hero .title{display:flex;align-items:center;gap:12px;width:100%;justify-content:space-between}
+  .hero h1{margin:0;font-size:20px;color:#4a2a3a;font-weight:800}
+  .hero p.sub{margin:0;font-size:13px;color:var(--muted)}
+  .media-frame{width:100%;height:360px;border-radius:18px;overflow:hidden;position:relative;box-shadow: 0 18px 46px rgba(12,6,10,0.06) inset;background: linear-gradient(180deg,#ffecf0,#f3fbff);display:flex;align-items:center;justify-content:center}
+  .hero .placeholder{display:flex;flex-direction:column;align-items:center;gap:8px;color:#a89aa6;font-size:13px;text-align:center}
+  .hero video, .hero img, .media-preview{width:100%;height:100%;object-fit:cover;display:block}
+  .cards-list{display:flex;gap:18px;flex-direction:column;width:100%;margin-top:6px}
+  .card{display:flex;gap:14px;align-items:center;justify-content:space-between;padding:14px;border-radius:var(--card-radius);background:var(--accent-soft);box-shadow: var(--soft-shadow);border:1px solid rgba(255,255,255,0.5)}
+  .left{display:flex;gap:12px;align-items:center}
+  .thumb{width:110px;height:110px;border-radius:14px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#fff,#fff8f9);border: 3px solid rgba(255,255,255,0.7);box-shadow: 0 8px 30px rgba(120,60,80,0.04);flex-shrink:0;position:relative}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .thumb .ph{font-weight:800;color:#b05a74;display:none;position:absolute}
+  .info h3{margin:0;font-size:16px;color:#58263b;font-weight:700}
+  .info p{margin:0;color:var(--muted);font-size:13px}
+  .actions{display:flex;gap:10px;align-items:center}
+  input[type="file"]{display:none}
+  .btn{background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));border: 0;padding:10px 14px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow: 0 10px 28px rgba(80,40,60,0.06);transition: transform .12s ease, box-shadow .12s ease;color:#512a3a;backdrop-filter: blur(6px)}
+  .btn:hover{transform: translateY(-4px)}
+  .btn-accent{background:var(--accent);color:white;padding:10px 16px;border-radius:14px;box-shadow: 0 12px 44px rgba(126,200,255,0.14)}
+  .label{font-size:12px;color:var(--muted);background: rgba(255,255,255,0.55);padding:6px 10px;border-radius:999px}
+  .letter-wrap{width:100%;display:flex;align-items:center;justify-content:flex-end;gap:20px}
+  .letter{width:160px;height:200px;border-radius:14px;background: linear-gradient(180deg,#fff,#fff6f7);box-shadow: 0 18px 60px rgba(12,8,10,0.08);position:relative;cursor:pointer;transform-origin: top center;transition: transform .32s cubic-bezier(.2,.9,.25,1)}
+  .letter .fold{position:absolute;inset:0;height:70px;background: linear-gradient(180deg,#fff8f8,#fff3f5);border-bottom-left-radius:14px;border-bottom-right-radius:14px;box-shadow: 0 6px 20px rgba(255,150,175,0.06) inset}
+  .heart-stamp{position:absolute;top:12px;left:12px;width:52px;height:52px;border-radius:50%;background: radial-gradient(circle at 30% 30%, #ffb3cf, #ff6e9b);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:20px;transform: rotate(-8deg);box-shadow: 0 12px 36px rgba(255,96,145,0.16)}
+  .letter.open{transform: translateY(-8px) rotateX(8deg) scale(1.02)}
+  .sheet-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background: linear-gradient(180deg, rgba(6,4,6,0.18), rgba(6,4,6,0.08));z-index:200;backdrop-filter: blur(6px) saturate(1.05)}
+  .sheet-modal.open{display:flex}
+  .sheet{width:min(920px,94%);max-height:86vh;background: linear-gradient(180deg,#fff,#fffaf8);border-radius:16px;padding:18px;box-shadow: 0 20px 80px rgba(8,6,10,0.18);overflow:auto;position:relative}
+  .sheet .close{position:absolute;right:12px;top:10px;border:none;background:rgba(0,0,0,0.06);padding:8px;border-radius:10px;cursor:pointer}
+  .horizontal-scroll{width:100%;display:flex;gap:28px;overflow-x:auto;padding:18px 8px;box-sizing:border-box;scroll-snap-type:x mandatory}
+  .h-panel{min-width:100vw;max-width:100%;height:640px;border-radius:18px;background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.7));box-shadow: var(--soft-shadow);padding:28px;box-sizing:border-box;display:flex;gap:18px;align-items:center;justify-content:center;scroll-snap-align:center;position:relative;overflow:visible}
+  #gameCanvas{width:560px;height:420px;border-radius:14px;display:block;background: linear-gradient(180deg,#ffeef8,#f1f8ff);box-shadow: 0 30px 80px rgba(12,8,12,0.08) inset}
+  .game-ui{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+  .score-bubble{padding:10px 14px;border-radius:999px;background:linear-gradient(90deg,#fff,#fffaf7);box-shadow: 0 12px 36px rgba(12,8,12,0.06);font-weight:800;color:#6f2b48}
+  .restart-big{background: linear-gradient(90deg,#ff8fb3,#7ec8ff);border:none;color:white;padding:12px 18px;border-radius:12px;font-weight:900;cursor:pointer;box-shadow:0 12px 36px rgba(126,200,255,0.12)}
+  .game-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:420px;max-width:92%;background:linear-gradient(180deg,#fff,#fffdfb);border-radius:16px;padding:18px;box-shadow: 0 30px 90px rgba(0,0,0,0.18);text-align:center;display:none;z-index:40}
+  .game-overlay.show{display:block}
+  .banner{font-size:22px;font-weight:900;color:#8b2d4d}
+  .bg-hearts{position:absolute;inset:0;pointer-events:none;z-index:6}
+  @media (max-width:920px){.media-frame{height:280px}#gameCanvas{width:480px;height:360px}.h-panel{height:700px}}
+  @media (max-width:720px){.hero{padding:12px;border-radius:16px}.card{flex-direction:column;align-items:flex-start}.thumb{width:86px;height:86px;border-radius:12px}.media-frame{height:220px;border-radius:12px}.letter{width:130px;height:160px}#gameCanvas{width:320px;height:240px}.h-panel{min-width:100vw;height:820px;padding:18px}}
+  footer{text-align:center;padding:18px;color:var(--muted);font-size:13px}
+  /* ---- Large letter preview layout ---- */
+.letter-wrap{
+  width:100%;
+  display:flex;
+  align-items:flex-start;
+  gap:28px;
+  box-sizing:border-box;
+  justify-content:space-between;
+}
+
+/* left column: the small letter card */
+.letter-col {
+  flex: 0 0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:flex-start;
+}
+
+/* middle column: text + controls */
+.letter-meta {
+  flex: 1 1 480px;
+  min-width:200px;
+}
+
+/* right column: big preview */
+.preview-large {
+  flex: 0 0 620px;        /* desired large width — adjust (e.g. 520, 640) */
+  max-width: 62%;
+  display:block;
+  align-self:flex-start;
+}
+
+#letterPreview{
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:86vh;        /* so it fits vertically on screen */
+  object-fit:cover;       /* fill while preserving aspect ratio */
+  border-radius:12px;
+  box-shadow: 0 30px 80px rgba(12,8,12,0.08);
+  background: #fff;
+}
+
+/* Make sure small helper text & controls look fine */
+.letter-meta .controls { display:flex; gap:10px; align-items:center; margin-top:8px; }
+
+/* Responsive: hide large preview on narrow screens and show a smaller preview */
+@media (max-width:920px){
+  .preview-large { flex-basis: 320px; max-width:40%; }
+  #letterPreview { max-height:420px; }
+}
+@media (max-width:720px){
+  .letter-wrap{ flex-direction:column; align-items:flex-start; }
+  .preview-large{ width:100%; max-width:100%; order:2; margin-top:12px; }
+  .letter-col, .letter-meta { width:100%; }
+}
+
+</style>
+</head>
+<body>
+<div class="viewport" id="viewport">
+
+  <!-- HERO -->
+  <section class="page" aria-label="Hero section">
+    <div class="container">
+      <div class="hero" role="banner" aria-labelledby="heroTitle">
+        <div class="title">
+          <div>
+            <h1 id="heroTitle">merry christmas</h1>
+            <p class="sub">A small festive interactive showcase</p>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <div class="label">i lob u</div>
+            <button class="btn" id="toggleMusic" title="Toggle ambient music">Turn music on</button>
+            <audio id="bgMusic" loop preload="auto">
+              <!-- Replace with file available in same folder or a hosted file -->
+              <source src="Sia - Snowman [Official Video].mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        </div>
+
+        <div class="media-frame" id="heroFrame" aria-hidden="false">
+          <div id="heroPlaceholder" class="placeholder">
+            <svg width="76" height="76" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M3 7v10a2 2 0 0 0 2 2h14" stroke="#d8c7ce" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M7 7a5 5 0 0 1 10 0" stroke="#d8c7ce" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div style="max-width:320px">loooooooove u muwwwh :></div>
+          </div>
+          <video id="heroVideo" controls style="display:none" aria-label="Hero video preview"></video>
+          <img id="heroImg" src="WhatsApp Image 2025-12-25 at 8.00.26 AM (2).jpeg" alt="" style="display:block;object-fit:contain" />
+        </div>
+      </div>
+
+      <!-- CARDS -->
+      <div class="cards-list" id="cardsContainer" aria-label="Cards">
+        <!-- card 0 -->
+        <div class="card c-0">
+          <div class="left">
+            <div class="thumb" id="thumb-0">
+              <img id="img-0" src="1.jfif" alt="Song cover" class="cover-img">
+              <span class="ph" id="ph-0">AUDIO</span>
+              <span class="playing-indicator" style="display:none">♪</span>
+            </div>
+            <div class="info"><h3>Love Me Like You Do</h3><p>your Favorite</p></div>
+          </div>
+          <div class="actions vertical">
+            <button class="btn" data-index="0" data-action="play">Play</button>
+            <button class="btn" data-index="0" data-action="toggle">Pause</button>
+            <button class="btn" data-index="0" data-action="stop">Stop</button>
+            <label class="btn" for="file-0">Upload</label>
+            <input id="file-0" type="file" accept="image/*,video/*,audio/*" />
+          </div>
+          <audio id="audio-0" src="SpotiDown.App - Love Me Like You Do - Ellie Goulding.mp3"></audio>
+        </div>
+
+        <!-- Duplicate the card pattern for other cards (1..4) -->
+        <div class="card c-1">
+          <div class="left">
+            <div class="thumb" id="thumb-1"><img id="img-1" src="2.jfif"><span class="ph" id="ph-1">AUDIO</span></div>
+            <div class="info"><h3>I Think They Call This Love</h3><p>YOUR Favorite</p></div>
+          </div>
+          <div class="actions vertical">
+            <button class="btn" data-index="1" data-action="play">Play</button>
+            <button class="btn" data-index="1" data-action="toggle">Pause</button>
+            <button class="btn" data-index="1" data-action="stop">Stop</button>
+            <label class="btn" for="file-1">Upload</label>
+            <input id="file-1" type="file" accept="image/*,video/*,audio/*" />
+          </div>
+          <audio id="audio-1" src="I_Think_They_Call_This_Love_Cover.mp3"></audio>
+        </div>
+
+        <div class="card c-2">
+          <div class="left">
+            <div class="thumb" id="thumb-2"><img id="img-2" src="3.jfif"><span class="ph" id="ph-2">AUDIO</span></div>
+            <div class="info"><h3>Play Date</h3><p>MY Favorite</p></div>
+          </div>
+          <div class="actions vertical">
+            <button class="btn" data-index="2" data-action="play">Play</button>
+            <button class="btn" data-index="2" data-action="toggle">Pause</button>
+            <button class="btn" data-index="2" data-action="stop">Stop</button>
+            <label class="btn" for="file-2">Upload</label>
+            <input id="file-2" type="file" accept="image/*,video/*,audio/*" />
+          </div>
+          <audio id="audio-2" src="Play Date Lilly Brooks 128 Kbps.mp3"></audio>
+        </div>
+
+        <div class="card c-3">
+          <div class="left">
+            <div class="thumb" id="thumb-3"><img id="img-3" src="4.jfif"><span class="ph" id="ph-3">AUDIO</span></div>
+            <div class="info"><h3>Fairytale</h3><p>YOUR Favorite</p></div>
+          </div>
+          <div class="actions vertical">
+            <button class="btn" data-index="3" data-action="play">Play</button>
+            <button class="btn" data-index="3" data-action="toggle">Pause</button>
+            <button class="btn" data-index="3" data-action="stop">Stop</button>
+            <label class="btn" for="file-3">Upload</label>
+            <input id="file-3" type="file" accept="image/*,video/*,audio/*" />
+          </div>
+          <audio id="audio-3" src="Alexander Rybak - Fairytale.mp3"></audio>
+        </div>
+
+        <div class="card c-4">
+          <div class="left">
+            <div class="thumb" id="thumb-4"><img id="img-4" src="5.jfif"><span class="ph" id="ph-4">AUDIO</span></div>
+            <div class="info"><h3>Lovers Rock</h3><p>MY Favorite</p></div>
+          </div>
+          <div class="actions vertical">
+            <button class="btn" data-index="4" data-action="play">Play</button>
+            <button class="btn" data-index="4" data-action="toggle">Pause</button>
+            <button class="btn" data-index="4" data-action="stop">Stop</button>
+            <label class="btn" for="file-4">Upload</label>
+            <input id="file-4" type="file" accept="image/*,video/*,audio/*" />
+          </div>
+          <audio id="audio-4" src="Lovers Rock - TV Girl.mp3"></audio>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LETTER -->
+  <section class="page" aria-label="Letter section">
+    <div class="container">
+      <div style="width:100%; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <h2 style="margin:0 0 6px 0;">Little Paper Surprise</h2>
+          <p style="margin:0;color:var(--muted)">Tap the tiny letter with heart-stamp to unfold.</p>
+        </div>
+        <div class="label">Tap / Click • Works on mobile</div>
+      </div>
+
+      <div class="letter-wrap" style="width:100%;">
+        <div class="letter" id="letter" title="Tap to open" role="button" aria-pressed="false">
+          <div class="fold"></div>
+          <div class="heart-stamp" id="heartStamp">❤</div>
+        </div>
+
+        <div style="flex:1;color:var(--muted);font-size:14px;">
+          <div style="margin-bottom:10px;">letter kholo</div>
+          <div style="display:flex;gap:10px;align-items:center;">
+           <input id="heroUpload" type="file" accept="image/*,video/*" />
+           <button class="btn" id="clearHero" title="Clear hero content">my princess</button>
+            <input id="letterFile" type="file" accept="image/*,video/*" />
+            <img id="letterPreview"
+     src="WhatsApp Image 2025-12-25 at 3.34.37 PM.jpeg"
+     alt=""
+     style="
+       max-height:1400px;
+       width:auto;
+       height:auto;
+       border-radius:10px;
+       object-fit:contain;
+       box-shadow:0 10px 30px rgba(0,0,0,0.12);
+     ">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GAME -->
+  <section class="page" aria-label="Game section">
+    <div class="container">
+      <div style="width:100%;display:flex;justify-content:space-between;align-items:center;">
+        <h2 style="margin:0;">Scroll right → for a small Heart-Flight game (Aesthetic)</h2>
+        <div class="label">Tap / Click • Spacebar ﬂap</div>
+      </div>
+
+      <div class="horizontal-scroll" id="hScroll">
+        <div class="h-panel" aria-hidden="false">
+          <div style="max-width:760px;text-align:center;">
+            <h3>About the game</h3>
+            <p style="color:var(--muted)">A small heart-bird flies between balloons and pastel gifts — score by passing obstacles. There's soft ambient music and celebratory confetti when scoring.</p>
+            <div style="display:flex;gap:10px;justify-content:center;margin-top:12px;">
+              <button class="btn-accent btn" id="startGame">Start</button>
+              <button class="btn" id="resetGame">Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="h-panel" style="flex-direction:column;align-items:center;justify-content:flex-start;">
+          <div class="bg-hearts" id="bgHearts" aria-hidden="true"></div>
+
+          <canvas id="gameCanvas" width="560" height="420" aria-label="Heart flight game"></canvas>
+
+          <div style="display:flex;gap:12px;align-items:center;margin-top:12px;">
+            <div class="score-bubble" id="scoreLabel">💖 Score: <strong id="scoreVal">0</strong></div>
+            <div style="color:var(--muted)">Best: <span id="bestScore">0</span></div>
+          </div>
+
+          <div style="display:flex;gap:10px;align-items:center;margin-top:10px;">
+            <button class="btn" id="btnMute">Unmute</button>
+            <button class="restart-big" id="playAgain" style="display:none">Play Again</button>
+          </div>
+
+          <div class="game-overlay" id="gameOverlay" role="dialog" aria-hidden="true">
+            <div class="banner">Well played</div>
+            <div style="color:var(--muted);margin:8px 0">You scored <strong id="finalScore">0</strong> — nice!</div>
+            <button class="restart-big" id="overlayRestart">Play Again</button>
+          </div>
+        </div>
+
+        <div class="h-panel" style="align-items:flex-start;padding-top:40px;">
+          <div style="max-width:820px;">
+            <h3>Game Controls & Notes</h3>
+            <ul style="color:var(--muted);line-height:1.6">
+              <li>Click/tap or press Space to flap upward.</li>
+              <li>Balloon and pastel gifts are obstacles; fly between them.</li>
+              <li>Particles celebrate score milestones.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Built with a Rose-Blush × Sky-Glow aesthetic — replace images and audio via the upload buttons.
+  </footer>
+</div>
+
+<!-- Sheet modal -->
+<div class="sheet-modal" id="sheetModal" aria-hidden="true">
+  <div class="sheet" role="dialog" aria-labelledby="sheetTitle" aria-modal="true">
+    <button class="close" id="closeSheet" aria-label="Close letter">✕</button>
+    <h3 id="sheetTitle">Letter — Memory</h3>
+    <div id="sheetContent" style="margin-top:12px; color:#5a2c3c; line-height:1.7; font-size:15px;">
+  <p>
+    Soo my certified 5'1, I love you.
+  </p>
+
+  <p>
+    We met on December 15th as you said, and it’s been 10 days.  
+    I know it’s not a long time period, but all I can promise is to stay with you  
+    and love you all day — if you promise me that you’ll never give up on me.
+  </p>
+
+  <p>
+    I wanna help you.  
+    I wanna do something that you’ll be proud of.  
+    I wanna become something — not those past regrets.
+  </p>
+
+  <p>
+    I wanna play games with you.  
+    I wanna be with you.  
+    I wanna stare at you and all.  
+    Mostly, I wanna be yours.
+  </p>
+
+  <p>
+    Tbh, I don’t have much to say.  
+    All I can say is thanks — thankssss for making my day enlightened.
+  </p>
+</div>
+
+  </div>
+</div>
+
+<script>
+/* ---------------------------
+   Single consolidated script (fixed)
+   --------------------------- */
+
+(() => {
+  /* Element references */
+  const heroFrame = document.getElementById('heroFrame');
+  const heroVideo = document.getElementById('heroVideo');
+  const heroImg = document.getElementById('heroImg');
+  const heroPlaceholder = document.getElementById('heroPlaceholder');
+  const heroUpload = document.getElementById('heroUpload');
+  const clearHero = document.getElementById('clearHero');
+
+  const letter = document.getElementById('letter');
+  const sheetModal = document.getElementById('sheetModal');
+  const closeSheetBtn = document.getElementById('closeSheet');
+  const letterFile = document.getElementById('letterFile');
+  const sheetContent = document.getElementById('sheetContent');
+  const heartStamp = document.getElementById('heartStamp');
+  const letterPreview = document.getElementById('letterPreview');
+
+  const toggleMusicBtn = document.getElementById('toggleMusic');
+  const bgMusic = document.getElementById('bgMusic');
+
+  const startGameBtn = document.getElementById('startGame');
+  const resetGameBtn = document.getElementById('resetGame');
+  const playAgainBtn = document.getElementById('playAgain');
+  const overlayRestartBtn = document.getElementById('overlayRestart');
+  const scoreValEl = document.getElementById('scoreVal');
+  const bestScoreEl = document.getElementById('bestScore');
+  const finalScoreEl = document.getElementById('finalScore');
+  const gameOverlay = document.getElementById('gameOverlay');
+  const btnMute = document.getElementById('btnMute');
+
+  /* ---- HERO upload & preview ---- */
+  function setHeroFromFile(file){
+    if(!file) return;
+    const url = URL.createObjectURL(file);
+    heroPlaceholder.style.display = 'none';
+    if(file.type.startsWith('video/')){
+      heroVideo.src = url; heroVideo.style.display = 'block'; heroImg.style.display = 'none';
+    } else {
+      heroImg.src = url; heroImg.style.display = 'block'; heroVideo.style.display = 'none';
+    }
+  }
+  if(heroUpload){
+    heroUpload.addEventListener('change', e => setHeroFromFile(e.target.files[0]));
+  }
+  if(clearHero){
+    clearHero.addEventListener('click', () => {
+      try{ heroVideo.pause(); } catch(e){}
+      heroVideo.src = ''; heroImg.src = ''; heroVideo.style.display = 'none'; heroImg.style.display = 'none'; heroPlaceholder.style.display = 'flex';
+      if(heroUpload) heroUpload.value = '';
+    });
+  }
+
+  /* ---- LETTER upload and modal ---- */
+  let letterMediaURL = null;
+  let letterMediaType = null;
+  if(letterFile){
+    letterFile.addEventListener('change', (e) => {
+      const f = e.target.files[0];
+      if(!f) return;
+      letterMediaURL = URL.createObjectURL(f);
+      letterMediaType = f.type;
+      heartStamp.textContent = '♥';
+      // small preview thumbnail
+      if(f.type.startsWith('image/')) letterPreview.src = letterMediaURL;
+      renderSheetContent();
+      alert('Letter media uploaded — tap the letter to open it.');
+    });
+  }
+
+  // FIXED: do NOT clear the whole sheetContent (keeps the paragraphs)
+  function renderSheetContent(){
+    // remove previously appended media only (class "letter-media")
+    sheetContent.querySelectorAll('.letter-media').forEach(el => el.remove());
+
+    if(!letterMediaURL) return;
+
+    if(letterMediaType && letterMediaType.startsWith('video/')){
+      const v = document.createElement('video');
+      v.src = letterMediaURL;
+      v.controls = true;
+      v.className = 'letter-media';
+      v.style.maxWidth = '100%';
+      v.style.height = 'auto';
+      v.style.marginTop = '18px';
+      v.style.borderRadius = '12px';
+      sheetContent.appendChild(v);
+
+    } else if(letterMediaType && letterMediaType.startsWith('image/')){
+      const img = document.createElement('img');
+      img.src = letterMediaURL;
+      img.className = 'letter-media';
+      img.style.maxWidth = '100%';
+      img.style.height = 'auto';
+      img.style.objectFit = 'contain';
+      img.style.marginTop = '18px';
+      img.style.borderRadius = '12px';
+      sheetContent.appendChild(img);
+    }
+  }
+
+  letter.addEventListener('click', () => {
+    letter.classList.toggle('open');
+    setTimeout(()=> {
+      sheetModal.classList.add('open');
+      sheetModal.setAttribute('aria-hidden','false');
+      renderSheetContent();
+    }, 140);
+  });
+  closeSheetBtn.addEventListener('click', () => {
+    sheetModal.classList.remove('open');
+    sheetModal.setAttribute('aria-hidden','true');
+    letter.classList.remove('open');
+  });
+  sheetModal.addEventListener('click', (e)=> { if(e.target === sheetModal) { sheetModal.classList.remove('open'); letter.classList.remove('open'); } });
+
+  /* ---- Top-right background music toggle ---- */
+  let musicPlaying = false;
+  if(toggleMusicBtn){
+    toggleMusicBtn.addEventListener('click', () => {
+      if(!musicPlaying){
+        bgMusic.play().then(()=> {
+          musicPlaying = true;
+          toggleMusicBtn.textContent = 'Turn music off';
+        }).catch(()=> {
+          musicPlaying = false;
+          toggleMusicBtn.textContent = 'Turn music on';
+        });
+      } else {
+        bgMusic.pause();
+        musicPlaying = false;
+        toggleMusicBtn.textContent = 'Turn music on';
+      }
+    });
+  }
+
+  /* ---- Audio card controls + preview uploads ---- */
+  const NUM_CARDS = 5;
+  let currentlyPlayingAudio = null;
+
+  // card button clicks (play/toggle/stop)
+  document.querySelectorAll('.card .actions .btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const action = btn.dataset.action;
+      const idx = btn.dataset.index;
+      if(typeof idx === 'undefined') return;
+      const audio = document.getElementById(`audio-${idx}`);
+      if(!audio) return;
+      if(action === 'play'){
+        if(currentlyPlayingAudio && currentlyPlayingAudio !== audio){ currentlyPlayingAudio.pause(); currentlyPlayingAudio.currentTime = 0; }
+        audio.play().catch(()=>{});
+        currentlyPlayingAudio = audio;
+        // show playing indicator
+        document.querySelectorAll('.card').forEach(c => c.classList.remove('playing'));
+        const card = document.querySelector(`.card.c-${idx}`);
+        if(card) card.classList.add('playing');
+      } else if(action === 'toggle'){
+        if(audio.paused) audio.play().catch(()=>{});
+        else audio.pause();
+      } else if(action === 'stop'){
+        audio.pause(); audio.currentTime = 0;
+        const card = document.querySelector(`.card.c-${idx}`);
+        if(card) card.classList.remove('playing');
+        if(currentlyPlayingAudio === audio) currentlyPlayingAudio = null;
+      }
+    });
+  });
+
+  // file inputs for cards (preview image/video/audio)
+  for(let i=0;i<NUM_CARDS;i++){
+    (function(idx){
+      const fileInput = document.getElementById('file-'+idx);
+      const imgEl = document.getElementById('img-'+idx);
+      const ph = document.getElementById('ph-'+idx);
+      if(!fileInput) return;
+      fileInput.addEventListener('change', e=>{
+        const f = e.target.files[0];
+        if(!f) return;
+        const url = URL.createObjectURL(f);
+        if(f.type.startsWith('image/')){
+          if(imgEl){ imgEl.src = url; imgEl.style.display = 'block'; }
+          if(ph) ph.style.display = 'none';
+        } else if(f.type.startsWith('video/')){
+          // generate a small poster frame if possible (try)
+          const vid = document.createElement('video');
+          vid.preload = 'metadata';
+          vid.muted = true;
+          vid.src = url;
+          vid.addEventListener('loadeddata', ()=> {
+            try {
+              const c = document.createElement('canvas');
+              const ratio = (vid.videoWidth && vid.videoHeight) ? (vid.videoHeight/vid.videoWidth) : 1;
+              const w = 220, h = Math.round(w * ratio);
+              c.width = w; c.height = h;
+              const ctx = c.getContext('2d');
+              ctx.drawImage(vid,0,0,c.width,c.height);
+              if(imgEl){ imgEl.src = c.toDataURL(); imgEl.style.display='block'; }
+              if(ph) ph.style.display='none';
+            } catch(err){
+              if(ph){ ph.style.display='block'; ph.textContent = 'VIDEO'; }
+            }
+          });
+        } else if(f.type.startsWith('audio/')){
+          if(imgEl) imgEl.style.display='none';
+          if(ph){ ph.style.display='block'; ph.textContent = 'AUDIO'; }
+          // associate uploaded audio with audio element (optional)
+          const audioEl = document.getElementById(`audio-${idx}`);
+          if(audioEl) audioEl.src = url;
+        } else {
+          if(ph){ ph.style.display='block'; ph.textContent = 'FILE'; }
+        }
+      });
+    })(i);
+  }
+
+  /* clicking/thumb sets hero media */
+  for(let i=0;i<NUM_CARDS;i++){
+    (function(idx){
+      const thumbEl = document.getElementById('thumb-'+idx);
+      if(!thumbEl) return;
+      thumbEl.addEventListener('click', ()=> {
+        const img = document.getElementById('img-'+idx);
+        if(img && img.src){
+          heroImg.src = img.src; heroImg.style.display = 'block'; heroVideo.style.display = 'none'; heroPlaceholder.style.display = 'none';
+          window.scrollTo({top:0,behavior:'smooth'});
+        } else {
+          alert('No photo in this card yet. Upload one first.');
+        }
+      });
+    })(i);
+  }
+
+  /* -----------------------
+     Background floating DOM hearts (decorative)
+     ----------------------- */
+  (function createBgHearts(){
+    const container = document.getElementById('bgHearts');
+    if(!container) return;
+    for(let i=0;i<18;i++){
+      const el = document.createElement('div');
+      el.className = 'bg-heart';
+      el.style.position = 'absolute';
+      el.style.left = Math.random()*100 + '%';
+      el.style.bottom = (-10 - Math.random()*30) + 'px';
+      const s = 0.4 + Math.random()*1.2;
+      el.style.transform = `scale(${s})`;
+      el.style.width = (8 + Math.random()*22) + 'px';
+      el.style.height = el.style.width;
+      el.style.opacity = (0.06 + Math.random()*0.5);
+      el.style.pointerEvents = 'none';
+      el.style.background = 'radial-gradient(circle at 40% 30%, #fff6f9, rgba(255,255,255,0))';
+      el.style.borderRadius = '50%';
+      el.style.boxShadow = '0 0 22px rgba(255,120,150,0.06)';
+      container.appendChild(el);
+
+      (function animateNode(node, delay){
+        const dur = 12000 + Math.random()*16000;
+        const start = Date.now() + delay;
+        function tick(){
+          const t = (Date.now() - start) / dur;
+          const tt = t - Math.floor(t);
+          node.style.bottom = (tt*120 - 10) + '%';
+          node.style.left = (parseFloat(node.style.left) + Math.sin(tt*2*Math.PI + delay)*0.12) + '%';
+          if(document.body.contains(node)) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      })(el, i*200);
+    }
+  })();
+
+  /* ===========================
+     Game: Heart Flight
+     =========================== */
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
+
+  let rect = canvas.getBoundingClientRect();
+  function dprResize(){
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    rect = canvas.getBoundingClientRect();
+    const cssW = rect.width || 560;
+    const cssH = rect.height || 420;
+    canvas.width = Math.round(cssW * dpr);
+    canvas.height = Math.round(cssH * dpr);
+    canvas.style.width = cssW + 'px';
+    canvas.style.height = cssH + 'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  dprResize();
+  window.addEventListener('resize', dprResize);
+
+  const G = { running:false, frame:0, score:0, best:0, muted:true };
+  const UI = {
+    scoreLabel: document.getElementById('scoreVal'),
+    bestLabel: document.getElementById('bestScore'),
+    finalScore: document.getElementById('finalScore'),
+    overlay: document.getElementById('gameOverlay'),
+    playAgainBtn: document.getElementById('playAgain'),
+    overlayRestart: document.getElementById('overlayRestart'),
+    startBtn: document.getElementById('startGame'),
+    resetBtn: document.getElementById('resetGame'),
+    muteBtn: document.getElementById('btnMute')
+  };
+
+  let bird = {
+    x: 84,
+    y: (rect.height || 420)/2,
+    radius: 12,
+    vy: 0,
+    gravity: 0.44,
+    lift: -8.8,
+    wingPhase: 0
+  };
+
+  const OBST = { gap: 132, width: 62, spacing: 190 };
+  let obstacles = [];
+  let particles = [];
+  let floaters = [];
+  let rafId = null;
+
+  function addFloater(){
+    const cw = (rect.width || 560);
+    const ch = (rect.height || 420);
+    floaters.push({
+      x: Math.random()*cw,
+      y: ch + Math.random()*120,
+      vy: - (0.18 + Math.random()*0.5),
+      size: 6 + Math.random()*18,
+      alpha: 0.12 + Math.random()*0.5,
+      sway: 12 + Math.random()*36,
+      swayPhase: Math.random()
+    });
+  }
+  for(let i=0;i<16;i++) addFloater();
+
+  function addParticle(x,y,opts={}){
+    const count = opts.count || 12;
+    for(let i=0;i<count;i++){
+      const a = Math.random()*Math.PI*2;
+      const speed = 1.6 + Math.random()*3.6;
+      particles.push({
+        x,y,
+        vx: Math.cos(a)*speed,
+        vy: Math.sin(a)*speed,
+        life: 36 + Math.floor(Math.random()*60),
+        size: 4 + Math.random()*9,
+        rot: Math.random()*Math.PI*2,
+        rotSpeed: (Math.random()*0.24 - 0.12),
+        hue: 320 + Math.random()*60 - 30
+      });
+    }
+  }
+
+  function spawnObstacle(){
+    const ch = (rect.height || 420);
+    const topH = 46 + Math.random()*(ch - OBST.gap - 140);
+    obstacles.push({
+      x: (rect.width || 560) + 40,
+      top: topH,
+      passed: false,
+      style: (Math.random() < 0.45) ? 'gift' : 'balloon',
+      hue: 320 + (Math.random()*70 - 35)
+    });
+  }
+
+  function resetGame(){
+    const ch = (rect.height || 420);
+    bird.y = ch/2; bird.vy = 0; bird.wingPhase = 0;
+    obstacles = []; particles = []; G.frame = 0; G.score = 0; G.running = false;
+    UI.scoreLabel.textContent = G.score;
+    UI.bestLabel.textContent = G.best;
+    UI.overlay.classList.remove('show');
+    playAgainBtn.style.display = 'none';
+    finalScoreEl.textContent = G.score;
+  }
+  resetGame();
+
+  UI.startBtn.addEventListener('click', ()=> {
+    resetGame();
+    G.running = true;
+    spawnObstacle();
+  });
+  UI.resetBtn.addEventListener('click', ()=> resetGame());
+  UI.playAgainBtn.addEventListener('click', ()=> { resetGame(); G.running = true; spawnObstacle();});
+  UI.overlayRestart.addEventListener('click', ()=> { resetGame(); G.running = true; spawnObstacle();});
+
+  function endGame(){
+    if(G.score > G.best) G.best = G.score;
+    UI.bestLabel.textContent = G.best;
+    G.running = false;
+    UI.finalScore.textContent = G.score;
+    UI.overlay.classList.add('show');
+    playAgainBtn.style.display = 'inline-block';
+  }
+
+  function flap(){
+    if(!G.running){
+      G.running = true;
+      if(obstacles.length === 0) spawnObstacle();
+    }
+    bird.vy = bird.lift;
+    bird.wingPhase = 1.0;
+  }
+
+  canvas.addEventListener('click', ()=> flap());
+  window.addEventListener('keydown', (e)=>{ if(e.code === 'Space'){ e.preventDefault(); flap(); } });
+
+  function update(){
+    G.frame++;
+    const ch = (rect.height || 420);
+    const cw = (rect.width || 560);
+    if(G.running && G.frame % 100 === 0) spawnObstacle();
+
+    bird.vy += bird.gravity;
+    bird.y += bird.vy;
+    bird.wingPhase *= 0.92;
+
+    for(let f of floaters){
+      f.y += f.vy;
+      f.x += Math.sin((G.frame + f.swayPhase*100)/60) * 0.3;
+      if(f.y < -40){ f.y = ch + Math.random()*120; f.x = Math.random()*cw; f.vy = - (0.18 + Math.random()*0.5); }
+    }
+
+    for(let i=particles.length-1;i>=0;i--){
+      const p = particles[i];
+      p.vy += 0.12;
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vx *= 0.995;
+      p.vy *= 0.995;
+      p.rot += p.rotSpeed;
+      p.life--;
+      if(p.life <= 0) particles.splice(i,1);
+    }
+
+    for(let ob of obstacles){
+      ob.x -= (2.6 + (G.frame/15000));
+      if(!ob.passed && ob.x + OBST.width < bird.x - 6){
+        ob.passed = true;
+        G.score++;
+        UI.scoreLabel.textContent = G.score;
+        addParticle(bird.x + 8, bird.y, {count: Math.min(20, 8 + Math.floor(G.score/1.5))});
+        if(G.score >= 1 && G.score % 5 === 0) addParticle(bird.x + 6, bird.y - 10, {count: 28});
+        if(G.score > G.best){ G.best = G.score; UI.bestLabel.textContent = G.best; }
+      }
+    }
+    obstacles = obstacles.filter(ob => ob.x > -OBST.width - 40);
+
+    if(bird.y - bird.radius < 0 || bird.y + bird.radius > ch - 12) endGame();
+
+    for(let ob of obstacles){
+      if(bird.x + bird.radius > ob.x && bird.x - bird.radius < ob.x + OBST.width){
+        if(bird.y - bird.radius < ob.top || bird.y + bird.radius > ob.top + OBST.gap){
+          endGame();
+        }
+      }
+    }
+  }
+
+  function draw(){
+    const ch = (rect.height || 420);
+    const cw = (rect.width || 560);
+    const g = ctx.createLinearGradient(0,0,0,ch);
+    g.addColorStop(0, '#fff3f7');
+    g.addColorStop(0.45, '#f3fbff');
+    g.addColorStop(1, '#fefcff');
+    ctx.fillStyle = g;
+    ctx.fillRect(0,0,cw,ch);
+
+    // floaters hearts
+    for(let f of floaters){
+      ctx.globalAlpha = Math.max(0.06, Math.min(0.9, f.alpha));
+      ctx.fillStyle = `hsla(335,75%,70%,${f.alpha})`;
+      drawHeart(ctx, f.x, f.y, f.size*0.06, Math.sin(f.swayPhase + (G.frame/80))*0.45);
+    }
+    ctx.globalAlpha = 1;
+
+    // ground band
+    ctx.fillStyle = 'rgba(255,240,245,0.4)';
+    roundedRect(ctx, 0, ch - 22, cw, 22, 6);
+    ctx.fill();
+
+    // obstacles
+    for(let ob of obstacles){
+      if(ob.style === 'gift'){
+        const boxW = OBST.width;
+        const topH = ob.top;
+        ctx.save();
+        ctx.fillStyle = `hsl(${ob.hue}, 70%, 70%)`;
+        roundedRect(ctx, ob.x, 0, boxW, topH, 10);
+        ctx.fill();
+        ctx.fillStyle = '#fff6f9';
+        ctx.fillRect(ob.x + boxW/2 - 6, 0, 12, topH);
+        ctx.restore();
+
+        const botY = ob.top + OBST.gap;
+        ctx.save();
+        ctx.fillStyle = `hsl(${(ob.hue+25)%360}, 70%, 60%)`;
+        roundedRect(ctx, ob.x, botY, boxW, ch - botY - 22, 10);
+        ctx.fill();
+        ctx.restore();
+      } else {
+        // balloon style
+        ctx.save();
+        const topH = ob.top;
+        ctx.beginPath();
+        ctx.ellipse(ob.x + OBST.width/2, topH/2, OBST.width*0.56, Math.max(OBST.width*0.62, topH*0.44), 0, 0, Math.PI*2);
+        ctx.fillStyle = `hsl(${ob.hue},70%,74%)`;
+        ctx.fill();
+        ctx.restore();
+
+        const botY = ob.top + OBST.gap;
+        ctx.save();
+        ctx.beginPath();
+        ctx.ellipse(ob.x + OBST.width/2, botY + (ch - botY - 22)/2, OBST.width*0.56, Math.max(OBST.width*0.6, (ch-botY-22)*0.44), 0, 0, Math.PI*2);
+        ctx.fillStyle = `hsl(${(ob.hue+30)%360},70%,72%)`;
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    // bird
+    ctx.save();
+    ctx.translate(bird.x, bird.y);
+    const tilt = Math.max(-0.6, Math.min(0.8, bird.vy / 14));
+    ctx.rotate(tilt);
+    const grd = ctx.createLinearGradient(-16,-16,16,16);
+    grd.addColorStop(0, '#ffe0ea'); grd.addColorStop(1, '#ff84a8');
+    ctx.fillStyle = grd;
+    drawHeart(ctx, 0, 0, bird.radius*0.075, 0);
+    ctx.fillStyle = '#2b1a1f';
+    ctx.beginPath(); ctx.arc(6, -4, Math.max(1.1, bird.radius*0.1), 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+
+    // particles
+    for(let p of particles){
+      ctx.save();
+      ctx.globalAlpha = Math.max(0.05, Math.min(1, p.life / 90));
+      ctx.fillStyle = `hsl(${p.hue},80%,60%)`;
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      drawHeart(ctx, 0, 0, p.size*0.06, 0);
+      ctx.restore();
+    }
+
+    // UI score text
+    ctx.save();
+    ctx.font = '700 14px Inter, system-ui, Arial';
+    ctx.fillStyle = '#6f2b48';
+    ctx.fillText(`Score 💖 ${G.score}`, 12, 22);
+    ctx.restore();
+  }
+
+  function loop(){
+    update();
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    draw();
+    rafId = requestAnimationFrame(loop);
+  }
+  // start animation
+  if(!rafId) loop();
+
+  function roundedRect(ctx, x, y, w, h, r){
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+  function drawHeart(ctx, sx, sy, s=1, rot=0){
+    ctx.save();
+    ctx.translate(sx, sy);
+    ctx.rotate(rot);
+    ctx.scale(s, s);
+    ctx.beginPath();
+    ctx.moveTo(0, -8);
+    ctx.bezierCurveTo(-10, -32, -48, -4, 0, 24);
+    ctx.bezierCurveTo(48, -4, 10, -32, 0, -8);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  /* prevent accidental scroll while dragging on canvas */
+  let isPointerDown = false;
+  canvas.addEventListener('pointerdown', (e)=>{ isPointerDown = true; e.preventDefault(); }, {passive:false});
+  window.addEventListener('pointerup', ()=>{ isPointerDown = false; }, {passive:true});
+  window.addEventListener('touchmove', (e)=> { if(isPointerDown){ e.preventDefault(); } }, {passive:false});
+
+  /* pause drawing when hidden */
+  document.addEventListener('visibilitychange', ()=> {
+    if(document.hidden){ cancelAnimationFrame(rafId); rafId = null; } else { if(!rafId) loop(); }
+  });
+
+  /* ------------------------
+     Simple mute/resume UI (no WebAudio here)
+     ------------------------ */
+  let sfxMuted = true;
+  if(btnMute){
+    btnMute.addEventListener('click', ()=> {
+      sfxMuted = !sfxMuted;
+      btnMute.textContent = sfxMuted ? 'Unmute' : 'Mute';
+    });
+    btnMute.textContent = 'Unmute';
+  }
+
+  // Ensure best score shows
+  if(bestScoreEl) bestScoreEl.textContent = G.best;
+})();
+</script>
